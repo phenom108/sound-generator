@@ -1,0 +1,2 @@
+rootProject.name='Sound Generator'
+include ':app'
