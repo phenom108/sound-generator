@@ -13,13 +13,15 @@ public class PlayToneThread extends Thread {
     private AudioTrack audioTrack = null;
     private final ToneStoppedListener toneStoppedListener;
     private int volume;
+    private int wave;
 
-    public PlayToneThread(int freqOfTone, int duration, int volume,
+    public PlayToneThread(int freqOfTone, int duration, int volume, int wave,
                           ToneStoppedListener toneStoppedListener) {
         this.freqOfTone = freqOfTone;
         this.duration = duration;
         this.toneStoppedListener = toneStoppedListener;
         this.volume = volume;
+        this.wave = wave;
     }
 
     @Override
@@ -32,16 +34,31 @@ public class PlayToneThread extends Thread {
         if (!isPlaying) {
             isPlaying = true;
 
-            int sampleRate = 14100;  // 44.1 KHz  441000
-
+            int sampleRate = 44100;  // 44.1 KHz  44100
             double dnumSamples = (double) duration * sampleRate;
             dnumSamples = Math.ceil(dnumSamples);
+
             int numSamples = (int) dnumSamples;
             double[] sample = new double[numSamples];
             byte[] generatedSnd = new byte[2 * numSamples];
 
+            double f = freqOfTone;
+            double q = 0;
+            final double K = 2.0 * Math.PI / sampleRate;
+
             for (int i = 0; i < numSamples; ++i) {
-                sample[i] = Math.sin(freqOfTone * 2 * Math.PI * i / (sampleRate));
+                if (wave == 1) {
+                    sample[i] = Math.sin(freqOfTone * 2 * Math.PI * i / (sampleRate));
+                } else if (wave == 2) {
+                    f += (freqOfTone - f) / 4096.0;
+                    q += (q < Math.PI) ? f * K : (f * K) - (2.0 * Math.PI);
+                    sample[i] = (short) ((q > 0.0) ? 1 : -1);
+                }
+                else if (wave==3){
+                    f += (freqOfTone - f) / 4096.0;
+                    q += (q < Math.PI) ? f * K : (f * K) - (2.0 * Math.PI);
+                    sample[i] = (short) Math.round((q / Math.PI));
+                }
             }
 
 

@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
@@ -15,11 +17,13 @@ public class MainActivity extends AppCompatActivity {
     private EditText frequencyEditText;
     private EditText durationEditText;
     private EditText volumeEditText;
-    private int frequency = 5000;
-    private int duration = 10;
+    private int frequency = 1000;
+    private int duration = 4;
     private int volume = 1;
     private boolean isPlaying = false;
     private FloatingActionButton myFab;
+    private RadioGroup rg;
+    private int wave;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         frequencyEditText = findViewById(R.id.frequency_edit_text);
         durationEditText = findViewById(R.id.duration_edit_text);
         SeekBar seekBarFreq = findViewById(R.id.seekBarFreq);
-        seekBarFreq.setMax(15000);
+        seekBarFreq.setMax(22000);
 
         SeekBar seekBarDuration = findViewById(R.id.seekBarDuration);
         seekBarDuration.setMax(60);
@@ -37,6 +41,23 @@ public class MainActivity extends AppCompatActivity {
         volumeEditText = findViewById(R.id.volume_edit_text);
         SeekBar seekBarVolume = findViewById(R.id.seekBarVolume);
         seekBarVolume.setMax(3);
+
+        rg = findViewById(R.id.radio_group);
+
+
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.sinwave_radio) {
+                    wave = 1;
+                } else if (checkedId == R.id.squarewave_radio) {
+                    wave = 2;
+                } else if (checkedId == R.id.sawtoothwave_radio) {
+                    wave = 3;
+                }
+            }
+        });
+
 
         myFab = findViewById(R.id.myFAB);
         myFab.setOnClickListener(new View.OnClickListener() {
@@ -105,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
         String freqString = frequencyEditText.getText().toString();
         String durationString = durationEditText.getText().toString();
         String volumeString = volumeEditText.getText().toString();
+
         if (!"".equals(freqString) && !"".equals(durationString)) {
             if (!isPlaying) {
                 myFab.setImageResource(R.drawable.ic_stop_white_24dp);
@@ -112,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
                 duration = Integer.parseInt(durationString);
                 volume = Integer.parseInt(volumeString);
                 // Play Tone
-                Tone.getInstance().generate(frequency, duration, volume, new ToneStoppedListener() {
+                Tone.getInstance().generate(frequency, duration, volume, wave, new ToneStoppedListener() {
                     @Override
                     public void onToneSTopped() {
                         isPlaying = false;

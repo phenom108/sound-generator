@@ -27,25 +27,25 @@
             android:inputType="number"
             android:paddingEnd="16dp"
             android:text="1000"
-            android:textSize="32sp" />
+            android:textSize="24sp" />
 
         <SeekBar
             android:id="@+id/seekBarFreq"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="5dp"
             android:max="15000"
-            android:progress="1000"
-            android:paddingBottom="10dp" />
+            android:paddingTop="5dp"
+            android:paddingBottom="10dp"
+            android:progress="1000" />
 
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
+        android:layout_height="2dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:background="#fff"
-        android:layout_height="2dp"/>
+        android:background="#fff" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -67,26 +67,26 @@
             android:gravity="right"
             android:inputType="number"
             android:paddingEnd="16dp"
-            android:text="10"
-            android:textSize="32sp" />
+            android:text="4"
+            android:textSize="24sp" />
 
         <SeekBar
             android:id="@+id/seekBarDuration"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="5dp"
-            android:progress="10"
             android:max="60"
-            android:paddingBottom="10dp" />
+            android:paddingTop="5dp"
+            android:paddingBottom="10dp"
+            android:progress="10" />
 
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
+        android:layout_height="2dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:background="#fff"
-        android:layout_height="2dp"/>
+        android:background="#fff" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -109,28 +109,74 @@
             android:inputType="number"
             android:paddingEnd="16dp"
             android:text="1"
-            android:textSize="32sp" />
+            android:textSize="24sp" />
 
         <SeekBar
             android:id="@+id/seekBarVolume"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="5dp"
-            android:progress="1"
             android:max="3"
-            android:paddingBottom="10dp" />
+            android:paddingTop="5dp"
+            android:paddingBottom="10dp"
+            android:progress="1" />
 
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="#fff" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:orientation="vertical">
+
+        <RadioGroup
+            android:id="@+id/radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/sinwave_radio"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Sin Wave"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/squarewave_radio"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Square Wave"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/sawtoothwave_radio"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Sawtooth Wave"
+                android:textSize="12sp" />
+
+        </RadioGroup>
+
+    </LinearLayout>
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/myFAB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
         android:layout_gravity="center"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="80dp"
+        android:background="@color/colorPrimary"
         android:backgroundTint="@color/colorPrimary"
         android:src="@drawable/ic_play_arrow_white_24dp" />
 

@@ -18,11 +18,11 @@ public class Tone {
     }
 
 
-    public void generate(int freq, int duration, int volume,
+    public void generate(int freq, int duration, int volume, int wave,
                          ToneStoppedListener toneStoppedListener) {
         if (!isThreadRunning) {
             stop();
-            playToneThread = new PlayToneThread(freq, duration, volume, toneStoppedListener);
+            playToneThread = new PlayToneThread(freq, duration, volume, wave, toneStoppedListener);
             playToneThread.start();
             isThreadRunning = true;
             stopThread.postDelayed(new Runnable() {
